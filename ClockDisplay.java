@@ -26,6 +26,9 @@ public class ClockDisplay
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
+        // Defaults to 00:00 (12:00 AM on display)
+        hours.setValue(0);
+        minutes.setValue(0);
         updateDisplay();
     }
 
