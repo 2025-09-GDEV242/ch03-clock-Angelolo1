@@ -84,7 +84,12 @@ public class ClockDisplay
         int h24 = hours.getValue();       // holds 0...24 range
         int h12 = h24 % 12;               // % 12 takes 13-24 back to 1-12
         if (h12 == 0) {
-            h12 = 12;
+            h12 = 12;                     // makes sure 0 appears as 12 on clock
         }
+        
+        // Used to display AM/PM from the internal 24-hour value
+        meridian = (h24 < 12) ? "AM" : "PM";
+        
+        displayString = h12 + ":" + minutes.getDisplayValue() + " " + meridian;
     }
 }
