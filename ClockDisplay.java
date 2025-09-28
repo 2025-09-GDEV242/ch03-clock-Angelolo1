@@ -77,10 +77,14 @@ public class ClockDisplay
     
     /**
      * Update the internal string that represents the display.
+     * Converts the internal 24-hour value to 12-hour with AM/PM.
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        int h24 = hours.getValue();       // holds 0...24 range
+        int h12 = h24 % 12;               // % 12 takes 13-24 back to 1-12
+        if (h12 == 0) {
+            h12 = 12;
+        }
     }
 }
