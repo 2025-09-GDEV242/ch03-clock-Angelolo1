@@ -76,7 +76,8 @@ public class ClockDisplay
     {
         meridian = (hour < 12) ? "AM" : "PM";
         
-        
+        int h12 = hour % 12;
+        if (h12 == 0) h12 = 12;
         
         hours.setValue(h12);
         minutes.setValue(minute);
