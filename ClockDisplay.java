@@ -54,10 +54,12 @@ public class ClockDisplay
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
 
+            //after clock hits 12, flips AM/PM
             if (hours.getValue() == 12) {
                 meridian = meridian.equals("AM") ? "PM" : "AM";
             }
 
+            //if the cap rolled 12 -> 0, jumps to 1
             else if (hours.getValue() == 0) {
                 hours.setValue(1);
 
@@ -74,8 +76,9 @@ public class ClockDisplay
      */
     public void setTime(int hour, int minute)
     {
+        //determines AM/PM
         meridian = (hour < 12) ? "AM" : "PM";
-        
+        //converts the 24 hour to 12 hour
         int h12 = hour % 12;
         if (h12 == 0) h12 = 12;
         
