@@ -17,7 +17,7 @@ public class ClockDisplay
     private NumberDisplay minutes;
     private String meridian;         // for "AM" and "PM" display
     private String displayString;    // simulates the actual display
-    
+
     /**
      * Constructor for ClockDisplay objects. This constructor 
      * creates a new clock set at 00:00.
@@ -53,8 +53,19 @@ public class ClockDisplay
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
+
+            if (hours.getValue() == 12) {
+                meridian = meridian.equals("AM") ? "PM" : "AM";
+            }
+
+            else if (hours.getValue() == 0) {
+                hours.setValue(1);
+
+            }
+
         }
         updateDisplay();
+
     }
 
     /**
@@ -63,7 +74,11 @@ public class ClockDisplay
      */
     public void setTime(int hour, int minute)
     {
-        hours.setValue(hour);
+        meridian = (hour < 12) ? "AM" : "PM";
+        
+        
+        
+        hours.setValue(h12);
         minutes.setValue(minute);
         updateDisplay();
     }
@@ -75,7 +90,7 @@ public class ClockDisplay
     {
         return displayString;
     }
-    
+
     /**
      * Update the internal string that represents the display.
      * Converts the internal 24-hour value to 12-hour with AM/PM.
@@ -87,10 +102,10 @@ public class ClockDisplay
         if (h12 == 0) {
             h12 = 12;                     // makes sure 0 appears as 12 on clock
         }
-        
+
         // Used to display AM/PM from the internal 24-hour value
         meridian = (h24 < 12) ? "AM" : "PM";
-        
+
         displayString = h12 + ":" + minutes.getDisplayValue() + " " + meridian;
     }
 }
