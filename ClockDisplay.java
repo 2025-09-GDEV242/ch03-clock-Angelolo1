@@ -24,10 +24,11 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(13);
         minutes = new NumberDisplay(60);
-        hours.setValue(0);
+        hours.setValue(12);
         minutes.setValue(0);
+        meridian = "AM";
         updateDisplay();
     }
 
@@ -38,7 +39,7 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute)
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(13);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
