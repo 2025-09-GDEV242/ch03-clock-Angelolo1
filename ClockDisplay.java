@@ -58,7 +58,6 @@ public class ClockDisplay
             if (hours.getValue() == 12) {
                 meridian = meridian.equals("AM") ? "PM" : "AM";
             }
-
             //if the cap rolled 12 -> 0, jumps to 1
             else if (hours.getValue() == 0) {
                 hours.setValue(1);
@@ -101,15 +100,9 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
-        int h24 = hours.getValue();       // holds 0...24 range
-        int h12 = h24 % 12;               // % 12 takes 13-24 back to 1-12
-        if (h12 == 0) {
-            h12 = 12;                     // makes sure 0 appears as 12 on clock
-        }
+        int h = hours.getValue();    
+        if (h == 0) h = 12;
 
-        // Used to display AM/PM from the internal 24-hour value
-        meridian = (h24 < 12) ? "AM" : "PM";
-
-        displayString = h12 + ":" + minutes.getDisplayValue() + " " + meridian;
+        displayString = h + ":" + minutes.getDisplayValue() + " " + meridian;
     }
 }
