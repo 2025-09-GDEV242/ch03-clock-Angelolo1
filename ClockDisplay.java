@@ -19,12 +19,11 @@ public class ClockDisplay
     private String displayString;    // simulates the actual display
 
     /**
-     * Constructor for ClockDisplay objects. This constructor 
-     * creates a new clock set at 00:00.
+     * Create a new clock set at 12:00 AM
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(13);
+        hours = new NumberDisplay(13);      // cap at 13 -> 0-12
         minutes = new NumberDisplay(60);
         hours.setValue(12);
         minutes.setValue(0);
@@ -33,9 +32,8 @@ public class ClockDisplay
     }
 
     /**
-     * Constructor for ClockDisplay objects. This constructor
-     * creates a new clock set at the time specified by the 
-     * parameters.
+     * Create a new clock set at the given hour and minute
+     * (hour given in 24-hour form, 0–23).
      */
     public ClockDisplay(int hour, int minute)
     {
@@ -54,11 +52,11 @@ public class ClockDisplay
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
 
-            //after clock hits 12, flips AM/PM
+            // flips AM/PM when 12 hits
             if (hours.getValue() == 12) {
                 meridian = meridian.equals("AM") ? "PM" : "AM";
             }
-            //if the cap rolled 12 -> 0, jumps to 1
+            // skips 0 and jumps right to 1
             else if (hours.getValue() == 0) {
                 hours.setValue(1);
 
@@ -75,9 +73,9 @@ public class ClockDisplay
      */
     public void setTime(int hour, int minute)
     {
-        //determines AM/PM
+        // determines AM/PM
         meridian = (hour < 12) ? "AM" : "PM";
-        //converts the 24 hour to 12 hour
+        // converts the 24 hour to 12 hour
         int h12 = hour % 12;
         if (h12 == 0) h12 = 12;
         
@@ -101,7 +99,7 @@ public class ClockDisplay
     private void updateDisplay()
     {
         int h = hours.getValue();    
-        if (h == 0) h = 12;
+        if (h == 0) h = 12;         // never show 0
 
         displayString = h + ":" + minutes.getDisplayValue() + " " + meridian;
     }
